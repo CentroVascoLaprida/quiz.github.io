@@ -101,11 +101,11 @@ button:active {
 }
 
 button.correct {
-    background-color: #2ecc71;
+    background-color: burlywood;
 }
 
 button.incorrect {
-    background-color: #e74c3c;
+    background-color: burlywood;;
 }
 
 /* Resultados */
