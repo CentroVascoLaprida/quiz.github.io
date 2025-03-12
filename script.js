@@ -3,8 +3,16 @@ const startBtn = document.getElementById('start-btn');
 const startScreen = document.getElementById('start-screen');
 const quizContainer = document.querySelector('.quiz-container');
 const resultContainer = document.getElementById('result');
+const instagramLink = document.querySelector('a[href="https://www.instagram.com/centrovascolagunenetxea/"]');
 let currentQuestion = 0;
 let score = 0;
+
+// Sumar punto extra si se hace click en el link de Instagram
+instagramLink.addEventListener('click', () => {
+    if (score < document.querySelectorAll('.question').length) {  // Solo sumar el punto si no se ha respondido correctamente a todas las preguntas
+        score++;
+    }
+});
 
 // Iniciar el quiz
 startBtn.addEventListener('click', function() {
@@ -49,11 +57,31 @@ function checkAnswer(button, isCorrect) {
 
 // Mostrar resultado final
 function showResult() {
+    const totalQuestions = document.querySelectorAll('.question').length;
+
+    // Asegurarse de que el puntaje no sea mayor al número de preguntas
+    if (score > totalQuestions) {
+        score = totalQuestions;
+    }
+
     let message = '';
-    if (score > 3) {
-        message = `¡Increíble! 🎉 Has superado el desafío con una puntuación de ${score} de ${document.querySelectorAll('.question').length}! 😎`;
+
+    if (score === totalQuestions) {
+        message = `¡Perfecto! 🎯 Has acertado todas las preguntas. ¡Eres un verdadero experto!`;
+    } else if (score >= 8) {
+        message = `¡Increíble! 🎉 Has superado el desafío con una puntuación de ${score} de ${totalQuestions}. 😎`;
+    } else if (score >= 6) {
+        message = `¡Muy bien! 👏 Tienes una buena base de conocimiento con una puntuación de ${score} de ${totalQuestions}.`;
+    } else if (score === 5) {
+        message = `¡Bien hecho! 👍 Has respondido la mitad de las preguntas correctamente con una puntuación de ${score} de ${totalQuestions}.`;
+    } else if (score >= 3) {
+        message = `¡Sigue así! 💪 Aún puedes aprender más, obtuviste ${score} de ${totalQuestions}.`;
+    } else if (score === 2) {
+        message = `¡Ánimo! 🌟 Conseguiste ${score} de ${totalQuestions}. ¡Sigue practicando!`;
+    } else if (score === 1) {
+        message = `¡No te desanimes! 🌼 Lograste ${score} de ${totalQuestions}. ¡La práctica hace al maestro!`;
     } else {
-        message = `¡Buen intento! 💪 Tu puntuación es ${score} de ${document.querySelectorAll('.question').length}.`;
+        message = `¡Sigue intentándolo! 🚀 No acertaste ninguna esta vez, pero la próxima será mejor.`;
     }
 
     resultContainer.innerHTML = `
@@ -61,6 +89,3 @@ function showResult() {
         <p>${message}</p>
     `;
 }
-
-
-
