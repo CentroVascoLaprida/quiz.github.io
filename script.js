@@ -27,6 +27,13 @@ function showQuestion(index) {
     questions.forEach((question, i) => {
         question.style.display = i === index ? 'block' : 'none';
     });
+
+    // Cambiar el título dependiendo de la pregunta
+    if (currentQuestion < 5) {
+        document.getElementById('quiz-title').textContent = '🎭 Preguntas sobre el Centro Vasco 🏠';
+    } else {
+        document.getElementById('quiz-title').textContent = '🏔️ Preguntas sobre el País Vasco 🌍';
+    }
 }
 
 // Comprobar respuesta
